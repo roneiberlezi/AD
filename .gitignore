@@ -1,0 +1,9 @@
+## Ignore files
+*.clas
+*.DS_store
+*.classpath
+*.project
+
+## Ignore folders
+bin/
+.settings/
