@@ -291,19 +291,24 @@ public class Team {
 	
 	public void printResults(){
 		System.out.println("=============== Results " + this.getName());
-		System.out.println("Spent time: " + this.getSpentTime());
-		System.out.println("Average queue time: " + this.getAverageWaitingTimeOnQueue());
-		System.out.println("Minimum waiting time: " + this.getMinimumWaitingTime());
-		System.out.println("Maximium waiting time: " + this.getMaximumWaitingTime());
-		System.out.println("Average number of waitign tasks: " + this.getAverageNumberOfWaitingTasks());
-		System.out.println("Minimum number of waiting tasks: " + this.getMinNumberOfWaitingTasks());
-		System.out.println("Maximum number of waiting tasks: " + this.getMaxNumberOfWaitingTasks());
-		System.out.println("Average execution time: " + this.getAverageExecutionTime());
-		System.out.println("Minimum execution time: " + this.getMinimuExecutionTime());
-		System.out.println("Maximum execution time: " + this.getMaximuExecutionTime());
-		System.out.println("Average response time: " + this.getAverageResponseTime());
-		System.out.println("Minimum response time: " + this.getMinimumResponseTime());
-		System.out.println("Maximum response time: " + this.getMaximumResponseTime());
+		
+		System.out.format("  Spent time: %.2f\n", this.getSpentTime());
+		System.out.println("  QUEUE TIME");
+		System.out.format("Average:  %.2f\n", this.getAverageWaitingTimeOnQueue());
+		System.out.format("Minimum:  %.2f\n", this.getMinimumWaitingTime());
+		System.out.format("Maximium: %.2f\n", this.getMaximumWaitingTime());
+		System.out.println("  WAITING TASKS");
+		System.out.format("Average:  %.2f\n", this.getAverageNumberOfWaitingTasks());
+		System.out.format("Minimum:  %.2f\n", (float) this.getMinNumberOfWaitingTasks());
+		System.out.format("Maximum:  %.2f\n", (float) this.getMaxNumberOfWaitingTasks());
+		System.out.println("  EXECUTION TIME");
+		System.out.format("Average:  %.2f\n", this.getAverageExecutionTime());
+		System.out.format("Minimum:  %.2f\n", this.getMinimuExecutionTime());
+		System.out.format("Maximum:  %.2f\n", this.getMaximuExecutionTime());
+		System.out.println("  RESPONSE TIME");
+		System.out.format("Average:  %.2f\n", this.getAverageResponseTime());
+		System.out.format("Minimum:  %.2f\n", this.getMinimumResponseTime());
+		System.out.format("Maximum:  %.2f\n", this.getMaximumResponseTime());
 		System.out.println("\n");
 	}
 
