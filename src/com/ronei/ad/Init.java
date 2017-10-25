@@ -10,13 +10,17 @@ public class Init {
 		List<Team> teams = new ArrayList<Team>();
 		EntryTimeListInfo entryTimeListInfo;
 		EntryTimeListInfo randomEntryTimeListInfo;
+		boolean isRepeatable = false;
+		int repeat = 1;
 		
 		int counter = 0;
 		for(String arg: args){
 			if (counter == 0)
 				entryTimeFile = arg;
-			//TODO - if counter == 1 and parameter == -repeat
-			//TODO - if counter == 2 and isRepeat then convert to int and set the number of replications
+			else if (counter == 1 && arg.equalsIgnoreCase("--repeat"))
+				isRepeatable = true;
+			else if (counter == 2 && isRepeatable)
+				repeat = Integer.parseInt(arg);
 			else
 				teams.add(new Team(arg));
 			
@@ -34,13 +38,15 @@ public class Init {
 		
 		
 		//TODO - Create a loop to replicate random n times
-		System.out.println("============================================= RANDOM ENTRY TIME =============================================");
-		randomEntryTimeListInfo = new EntryTimeListInfo(entryTimeListInfo.getMin(), entryTimeListInfo.getMax(), entryTimeListInfo.getEntryTime().size());
-		for(Team team: teams){
-			team.setEntryTimeList(randomEntryTimeListInfo.getEntryTime());
-			team.readFromFile(team.getName());
-			team.startWorking();
-			team.printResults();
+		for(int i = 1; i <= repeat; i++){
+			System.out.println("============================================= RANDOM ENTRY TIME " + i + " =============================================");
+			randomEntryTimeListInfo = new EntryTimeListInfo(entryTimeListInfo.getMin(), entryTimeListInfo.getMax(), entryTimeListInfo.getEntryTime().size());
+			for(Team team: teams){
+				team.setEntryTimeList(randomEntryTimeListInfo.getEntryTime());
+				team.readFromFile(team.getName());
+				team.startWorking();
+				team.printResults();
+			}
 		}
 	}
 
