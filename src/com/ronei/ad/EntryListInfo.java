@@ -7,34 +7,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EntryTimeListInfo {
-	private List<Float> entryTime;
+public class EntryListInfo {
+	private List<Float> entry;
 	private float min;
 	private float max;
 	
-	public EntryTimeListInfo(String file){
-		entryTime = new ArrayList<Float>();
+	public EntryListInfo(String file){
+		entry = new ArrayList<Float>();
 		max = 0;
 		min = 999;
 		
-		readFromFile(file, entryTime);
+		readFromFile(file, entry);
 	}
 	
 	
-	public EntryTimeListInfo(float min, float max, int numberOfEntrys){
-		entryTime = new ArrayList<Float>();
+	public EntryListInfo(float min, float max, int numberOfEntrys){
+		entry = new ArrayList<Float>();
 		this.min = min;
 		this.max = max;
 		
-		generateRandomEntryTime(min, max, numberOfEntrys);
+		generateRandomentry(min, max, numberOfEntrys);
 	}
 	
-	private void generateRandomEntryTime(float min, float max, int numberOfEntrys){
+	private void generateRandomentry(float min, float max, int numberOfEntrys){
 		Random random = new Random();
 		
 		for (int i = 0; i < numberOfEntrys; i++){
 			float f = min + random.nextFloat() * (max - min);
-			entryTime.add(f);
+			entry.add(f);
 		}
 	}
 	
@@ -73,8 +73,8 @@ public class EntryTimeListInfo {
 	}
 
 
-	public List<Float> getEntryTime() {
-		return entryTime;
+	public List<Float> getEntry() {
+		return entry;
 	}
 
 	
