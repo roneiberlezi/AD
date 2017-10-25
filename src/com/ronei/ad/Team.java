@@ -1,8 +1,5 @@
 package com.ronei.ad;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +17,8 @@ public class Team {
 	private List<Task> taskQueue;
 	private List<Task> executedTasks;
 	private List<Task> taskBuffer;
-	private List<Float> entryTimeList = null;
+	private EntryListInfo entryTimeList = null;
+	private EntryListInfo entryTaskList = null;
 	
 	public Team(String name){
 		this.name = name;
@@ -59,43 +57,41 @@ public class Team {
 		return timeSpent;
 	}
 	
-	public void setEntryTimeList(List<Float> timeList){
-		entryTimeList = new ArrayList<Float>(timeList);
+	public void setEntryTimeList(EntryListInfo entry){
+		entryTimeList = entry;
 	}
 	
-	public void readFromFile(String durationFile) {
+	public void readEntryTaskFile(String taskFile){
+		entryTaskList = new EntryListInfo(taskFile);
+	}
+	
+	public EntryListInfo getEntryTaskList(){
+		return entryTaskList;
+	}
+	
+	public void populateTaskBuffer(EntryListInfo entryTaskListInfo) {
 		//TODO - if entryTimeList is empty, throw an exception to initialize variable
 		
 		//Make sure everything is clear to start processing again
 		init();
-		
-		String durationLine = null;
-		
-		try {
-			FileReader durationFileReader = new FileReader(durationFile);
-			BufferedReader durationBufferedReader = new BufferedReader(durationFileReader);
-			
-			Iterator<Float> entryTimeIterator = entryTimeList.iterator();
-			float entryTime; 
 					
-			Task task;
-			float timeLine = 0;
-			while((durationLine = durationBufferedReader.readLine()) != null && entryTimeIterator.hasNext()) {
-	            entryTime = entryTimeIterator.next();
-	            
-				task = new Task(durationLine, entryTime);
-	            timeLine += task.getDiffTime();
-	            task.setEntryTime(timeLine);
-	            
-	            //TODO - Make a TaskListInfo, similar to the EntryTimeListInfo
-	            taskBuffer.add(task);
-	        }
-			
-			durationBufferedReader.close();
-		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Iterator<Float> entryTaskIterator = entryTaskListInfo.getEntry().iterator();
+		Iterator<Float> entryTimeIterator = entryTimeList.getEntry().iterator();
+		float entryTime;
+		float entryTask;
+				
+		Task task;
+		float timeLine = 0;
+		while(entryTaskIterator.hasNext() && entryTimeIterator.hasNext()) {
+            entryTime = entryTimeIterator.next();
+            entryTask = entryTaskIterator.next();
+            
+			task = new Task(entryTask, entryTime);
+            timeLine += task.getDiffTime();
+            task.setEntryTime(timeLine);
+            
+            taskBuffer.add(task);
+        }
 	}
 	
 	public void startWorking(){
